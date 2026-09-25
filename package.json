@@ -1,0 +1,24 @@
+{
+  "name": "docdrop",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Open, edit and present Word, Excel and PowerPoint files right in Chrome.",
+  "license": "AGPL-3.0-only",
+  "author": "Dave",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "package": "npm run build && cd dist && zip -qr ../docdrop-v$npm_package_version.zip . && echo \"Created docdrop-v$npm_package_version.zip\""
+  },
+  "dependencies": {
+    "exceljs": "latest",
+    "pptx-vanilla-viewer": "latest",
+    "superdoc": "latest",
+    "three": "latest",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "vite": "latest"
+  }
+}

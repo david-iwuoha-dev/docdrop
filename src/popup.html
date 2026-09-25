@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DocDrop</title>
+</head>
+<body>
+  <header>
+    <img src="/icons/icon32.png" alt="" width="24" height="24">
+    <h1>DocDrop</h1>
+    <label class="switch">
+      <input type="checkbox" id="toggle">
+      <span class="track" aria-hidden="true"></span>
+      <span class="sr">Open downloads automatically</span>
+    </label>
+  </header>
+
+  <p id="status" class="status">Off</p>
+  <p class="hint" id="hint">Turn on to open Word, Excel and PowerPoint downloads in a tab automatically.</p>
+
+  <button id="openTab" type="button" class="primary">Open DocDrop</button>
+
+  <section id="recentBox" hidden>
+    <h2>Recent files</h2>
+    <ul id="recentList"></ul>
+  </section>
+
+  <footer>
+    <span>Created by Dave</span>
+    <button type="button" id="themeBtn" class="link" title="Change appearance">Auto</button>
+  </footer>
+
+  <script type="module" src="./popup/popup.js"></script>
+</body>
+</html>

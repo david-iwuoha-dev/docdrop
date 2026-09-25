@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocDrop</title>
+  <link rel="icon" href="/icons/icon32.png">
+</head>
+<body>
+  <header class="bar">
+    <div class="identity">
+      <img src="/icons/icon32.png" alt="" width="22" height="22">
+      <span class="kind" id="kind" hidden></span>
+      <h1 id="title">DocDrop</h1>
+      <span class="unsaved" id="unsaved" hidden>Unsaved changes</span>
+    </div>
+
+    <div class="search" id="searchBox" hidden>
+      <input id="search" type="search" placeholder="Search" aria-label="Search this file" autocomplete="off">
+      <span class="count" id="searchCount" aria-live="polite"></span>
+      <button type="button" class="icon" id="searchPrev" aria-label="Previous match" title="Previous match">&#8249;</button>
+      <button type="button" class="icon" id="searchNext" aria-label="Next match" title="Next match">&#8250;</button>
+    </div>
+
+    <div class="actions">
+      <div class="zoom" id="zoomBox" hidden>
+        <button type="button" class="icon" id="zoomOut" aria-label="Zoom out" title="Zoom out">&minus;</button>
+        <button type="button" class="pct" id="zoomReset" title="Reset zoom">100%</button>
+        <button type="button" class="icon" id="zoomIn" aria-label="Zoom in" title="Zoom in">+</button>
+      </div>
+      <button type="button" id="editBtn" aria-pressed="false" hidden>Edit</button>
+      <button type="button" id="saveBtn" class="primary" hidden>Save</button>
+      <button type="button" id="saveAsBtn" hidden>Save as</button>
+      <button type="button" id="presentBtn" class="primary" hidden>Slideshow</button>
+      <button type="button" id="printBtn" hidden>Print</button>
+      <button type="button" id="openBtn">Open</button>
+      <button type="button" id="themeBtn" title="Change appearance">Auto</button>
+    </div>
+    <input id="picker" type="file" hidden>
+  </header>
+
+  <div class="subbar" id="docToolbarWrap" hidden>
+    <div id="docToolbar"></div>
+  </div>
+
+  <div class="subbar formula" id="formulaBar" hidden>
+    <span class="ref" id="cellRef">A1</span>
+    <input id="formula" aria-label="Cell contents" autocomplete="off" spellcheck="false" readonly>
+    <div class="sheet-tools" id="sheetTools" hidden>
+      <button type="button" data-act="insertRow">Insert row</button>
+      <button type="button" data-act="deleteRow">Delete row</button>
+      <button type="button" data-act="insertCol">Insert column</button>
+      <button type="button" data-act="deleteCol">Delete column</button>
+      <button type="button" data-act="undo">Undo</button>
+    </div>
+  </div>
+
+  <main id="stage">
+    <section id="welcome" class="welcome">
+      <div class="dropcard">
+        <h2 id="welcomeTitle">Drop a file to open it</h2>
+        <p id="welcomeText">Word, Excel and PowerPoint files. Drag one here from Chrome's downloads list or any folder.</p>
+        <div id="welcomeExtra"></div>
+        <button type="button" class="primary big" id="welcomeOpen">Open a file</button>
+      </div>
+      <div class="recent" id="recentBox" hidden>
+        <div class="recent-head">
+          <h3>Recent files</h3>
+          <button type="button" class="link" id="clearRecent">Clear list</button>
+        </div>
+        <ul id="recentList"></ul>
+      </div>
+    </section>
+    <div id="docHost" class="host" hidden></div>
+    <div id="sheetHost" class="host sheet-host" hidden></div>
+    <div id="slidesHost" class="host" hidden></div>
+  </main>
+
+  <nav class="tabs" id="sheetTabs" role="tablist" aria-label="Sheets" hidden></nav>
+
+  <footer class="foot">
+    <span class="credit">Created by Dave</span>
+    <span class="status" id="status" aria-live="polite"></span>
+  </footer>
+
+  <div id="dropCover" class="drop-cover" hidden>Release to open</div>
+
+  <script type="module" src="./viewer/main.js"></script>
+</body>
+</html>
