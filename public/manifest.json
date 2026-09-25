@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DocDrop",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Open, edit and present Word, Excel and PowerPoint files right in Chrome. Files never leave your computer.",
   "minimum_chrome_version": "116",
   "permissions": ["downloads", "storage"],

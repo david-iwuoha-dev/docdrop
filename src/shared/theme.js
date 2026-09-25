@@ -1,9 +1,9 @@
 // Light / dark / automatic appearance, shared by the viewer and the popup.
-const ORDER = ['auto', 'dark', 'light'];
+const ORDER = ['light', 'dark', 'auto'];
 
 export async function getTheme() {
   const { theme } = await chrome.storage.local.get('theme');
-  return ORDER.includes(theme) ? theme : 'auto';
+  return ORDER.includes(theme) ? theme : 'light';
 }
 
 export function applyTheme(theme) {

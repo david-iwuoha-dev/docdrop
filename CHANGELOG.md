@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.0
+
+- Word documents are now centered in the DocDrop tab.
+- Light appearance is now the default.
+- The Open button now reads "Open New File".
+- Search now works in Word documents.
+- The typing cursor is solid black and easy to see.
+
 ## 2.0.0
 
 - Word documents now open with their real page layout and can be edited and saved as `.docx` (SuperDoc).

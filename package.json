@@ -1,6 +1,6 @@
 {
   "name": "docdrop",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "description": "Open, edit and present Word, Excel and PowerPoint files right in Chrome.",
   "license": "AGPL-3.0-only",
