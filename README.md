@@ -30,14 +30,15 @@ Spreadsheets with several sheets get a tab bar at the bottom so you can switch b
 
 3. **Allow file access.** Click **Details** on DocDrop and turn on **Allow access to file URLs**. This lets downloads open instantly.
 
-4. **Turn it on.** Pin DocDrop to your toolbar and click its icon. The badge shows **ON** (green) or **OFF** (grey).
+4. **Turn it on.** Pin DocDrop to your toolbar, click its icon, and flip the switch. The drop tab opens and the badge shows **ON** (green). Drag files onto the drop tab, or just download them and they open by themselves.
 
 ## Project structure
 
 ```
 docdrop/
 ├── manifest.json     Extension settings and permissions (Manifest V3)
-├── background.js     On/off toggle and download watcher
+├── background.js     On/off state, drop tab and download watcher
+├── popup.*           The on/off switch shown when you click the icon
 ├── viewer.html       The viewer tab
 ├── viewer.css        Viewer styles
 ├── viewer.js         Reads and renders files
