@@ -2,7 +2,7 @@
 
 Open, edit and present Office files right in Chrome. Word documents keep their real layout while you edit them, spreadsheets keep their formatting when you save, and PowerPoint decks play as a full-screen slideshow. Everything runs inside the extension: your files never leave your computer.
 
-<!-- Add a screenshot or GIF here, for example: ![DocDrop opening a Word document](docs/screenshot.png) -->
+![DocDrop opening a Word document](Docs/screenshot.png)
 
 ## What it does
 
