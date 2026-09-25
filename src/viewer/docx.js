@@ -8,9 +8,12 @@ export class DocxView {
     this.onDirty = onDirty;
     this.onError = onError;
     this.sd = null;
+    this.editor = null;
     this.editing = false;
     this.results = [];
     this.resultIndex = -1;
+    this.query = '';
+    this.useBrowserFind = false;
   }
 
   async load(buf, name) {
@@ -32,6 +35,7 @@ export class DocxView {
         documentMode: 'viewing',
         telemetry: { enabled: false },
         onReady: () => { clearTimeout(timer); done(resolve); },
+        onEditorCreate: ({ editor }) => { this.editor = editor; },
         onEditorUpdate: () => { if (this.editing) this.onDirty(); },
         onContentError: (e) => { clearTimeout(timer); done(reject, e?.error || new Error('This document could not be read.')); },
         onException: (e) => {
@@ -72,30 +76,80 @@ export class DocxView {
     window.print();
   }
 
+  // SuperDoc keeps its search tools in different places depending on the version.
+  getEditor() {
+    return this.editor || this.sd?.activeEditor || this.sd?.editor || null;
+  }
+
   search(query) {
     this.results = [];
     this.resultIndex = -1;
-    if (!query || !this.sd?.search) return { count: 0, index: -1 };
-    try {
-      this.results = this.sd.search(query) || [];
-    } catch {
-      this.results = [];
+    this.query = query;
+    this.useBrowserFind = false;
+    if (!query) return { count: 0, index: -1 };
+
+    const ways = [
+      () => this.sd?.search?.(query),
+      () => this.getEditor()?.commands?.search?.(query)
+    ];
+    for (const way of ways) {
+      try {
+        const r = way();
+        if (Array.isArray(r) && r.length) { this.results = r; break; }
+      } catch { /* try the next way */ }
+    }
+
+    if (!this.results.length) {
+      // Fall back to the browser's own find, starting from the top of the document.
+      this.useBrowserFind = true;
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.setStart(this.host, 0);
+      range.collapse(true);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      return this.browserFind(1);
     }
     return this.step(1);
   }
 
   step(dir) {
+    if (this.useBrowserFind) return this.browserFind(dir);
     const n = this.results.length;
     if (!n) return { count: 0, index: -1 };
     this.resultIndex = (this.resultIndex + dir + n) % n;
-    try { this.sd.goToSearchResult(this.results[this.resultIndex]); } catch { /* ignore */ }
+    const hit = this.results[this.resultIndex];
+    try {
+      if (this.sd?.goToSearchResult) this.sd.goToSearchResult(hit);
+      else this.getEditor()?.commands?.goToSearchResult?.(hit);
+    } catch { /* ignore */ }
     return { count: n, index: this.resultIndex };
+  }
+
+  // The browser's own find, kept inside the document area.
+  browserFind(dir) {
+    const q = this.query;
+    const text = (this.host.innerText || '').toLowerCase();
+    const count = q ? text.split(q.toLowerCase()).length - 1 : 0;
+    if (!count) return { count: 0, index: -1 };
+    for (let i = 0; i < count + 2; i++) {
+      if (!window.find(q, false, dir < 0, true, false, false, false)) break;
+      const node = window.getSelection().anchorNode;
+      if (node && this.host.contains(node)) {
+        this.resultIndex = (this.resultIndex + dir + count) % count;
+        return { count, index: this.resultIndex };
+      }
+    }
+    return { count, index: Math.max(0, this.resultIndex) };
   }
 
   destroy() {
     try { this.sd?.destroy(); } catch { /* ignore */ }
     this.sd = null;
+    this.editor = null;
     this.editing = false;
     this.results = [];
+    this.resultIndex = -1;
+    this.useBrowserFind = false;
   }
 }
