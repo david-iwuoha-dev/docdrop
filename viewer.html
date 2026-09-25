@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DocDrop</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="bar">
+    <span class="kind" id="kind" hidden></span>
+    <h1 id="title">DocDrop</h1>
+    <button id="openBtn" type="button">Open a file</button>
+    <input id="picker" type="file" accept=".docx,.xlsx,.xlsm,.xls,.csv,.ods" hidden>
+  </header>
+
+  <main id="stage">
+    <section id="message" class="message">
+      <p class="lead">Drop a Word document or spreadsheet here.</p>
+      <p class="sub">You can drag it straight from Chrome's downloads list.</p>
+    </section>
+    <div id="doc" class="doc" hidden></div>
+    <div id="sheet" class="sheet" hidden></div>
+  </main>
+
+  <nav id="sheetTabs" class="tabs" hidden></nav>
+  <div id="dropCover" class="drop-cover" hidden>Release to open</div>
+
+  <script src="lib/jszip.min.js"></script>
+  <script src="lib/docx-preview.min.js"></script>
+  <script src="lib/xlsx.full.min.js"></script>
+  <script src="viewer.js"></script>
+</body>
+</html>
